@@ -1,21 +1,35 @@
 <div class="main-content">
-    <div class="section-content section-content-p30">
-        <h4>Category: {{ currentCategoryName }}</h4>
-        <hr />
-        <div class="container-fluid">
-            <div class="row">
-                <!-- loop over the collection of products -->
-                <div *ngFor="let tempProduct of products" class="col-md-6 col-lg-3 mb-4">
-                    <div class="product-box">
-                        <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
-                        <h1>{{ tempProduct.name }}</h1>
-                        <div class="price">
-                            {{ tempProduct.unitPrice | currency : "GBP" }}
-                        </div>
-                        <a href="#" class="primary-btn">Add to cart</a>
-                    </div>
-                </div>
-            </div>
+  <div class="section-content section-content-p30">
+    <h4>Category: {{ currentCategoryName }}</h4>
+    <hr />
+    <div class="container-fluid">
+      <div class="row">
+        <!-- If products empty then display message -->
+        <div
+          *ngIf="products?.length == 0; else myElseBlock"
+          class="alert alert-warning col-md-2"
+          role="alert"
+        >
+          No products found
         </div>
+
+        <!-- Loop over the collection of products -->
+        <ng-template #myElseBlock>
+          <div
+            *ngFor="let tempProduct of products"
+            class="col-md-6 col-lg-3 mb-4"
+          >
+            <div class="product-box">
+              <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
+              <h1>{{ tempProduct.name }}</h1>
+              <div class="price">
+                {{ tempProduct.unitPrice | currency : "GBP" }}
+              </div>
+              <a href="#" class="primary-btn">Add to cart</a>
+            </div>
+          </div>
+        </ng-template>
+      </div>
     </div>
+  </div>
 </div>
