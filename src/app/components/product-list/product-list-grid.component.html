@@ -4,28 +4,29 @@
     <hr />
     <div class="container-fluid">
       <div class="row">
-        <!-- If products empty then display message -->
-        <div
-          *ngIf="products?.length == 0; else myElseBlock"
-          class="alert alert-warning col-md-2"
-          role="alert"
-        >
-          No products found
+        <div *ngIf="products.length === 0; else myElseBlock">
+          <h1>No products found</h1>
         </div>
-
-        <!-- Loop over the collection of products -->
         <ng-template #myElseBlock>
+          <!-- This block will only be shown if products array is not empty -->
           <div
             *ngFor="let tempProduct of products"
             class="col-md-6 col-lg-3 mb-4"
           >
             <div class="product-box">
-              <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
-              <h1>{{ tempProduct.name }}</h1>
-              <div class="price">
-                {{ tempProduct.unitPrice | currency : "GBP" }}
+              <a routerLink="/products/{{ tempProduct.id }}">
+                <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
+              </a>
+              <div class="product-details">
+                <!-- Move the product name link here to ensure it's under the image -->
+                <a routerLink="/products/{{ tempProduct.id }}">
+                  <h1>{{ tempProduct.name }}</h1>
+                </a>
+                <div class="price">
+                  {{ tempProduct.unitPrice | currency : "GBP" }}
+                </div>
+                <a href="#" class="primary-btn">Add to cart</a>
               </div>
-              <a href="#" class="primary-btn">Add to cart</a>
             </div>
           </div>
         </ng-template>
