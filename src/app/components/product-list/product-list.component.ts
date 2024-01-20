@@ -6,69 +6,125 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list-grid.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-
   products: Product[] = [];
   currentCategoryId: number = 1;
-  currentCategoryName: string = "";
+  previousCategoryId: number = 1;
+  currentCategoryName: string = '';
   searchMode: boolean = false;
 
-  constructor(private productService: ProductService, 
-              private route: ActivatedRoute) { }
+  // New properties for pagination
+  thePageNumber: number = 1;
+  thePageSize: number = 16;
+  theTotalElements: number = 0;
+
+  previousKeyword: string = '';
+
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
-    this.listProducts();
+      this.listProducts();
     });
   }
 
   listProducts() {
-
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
-    if(this.searchMode) {
+    if (this.searchMode) {
       this.handleSearchProducts();
-    }
-    else { 
+    } else {
       this.handleListProducts();
     }
-
   }
 
   handleSearchProducts() {
-
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
+    // If we have a different keyword than previous
+    // then set thePageNumber to 1
+
+    if (this.previousKeyword != theKeyword) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousKeyword = theKeyword;
+
+    console.log(
+      'keyword = ' + theKeyword + ', thePageNumber = ' + this.thePageNumber
+    );
+
     // Now search for products using given keyword
-    this.productService.searchProducts(theKeyword).subscribe(
-      data => {
-        this.products = data
-      } );
+    this.productService
+      .searchProductsPaginate(
+        this.thePageNumber - 1,
+        this.thePageSize,
+        theKeyword
+      )
+      .subscribe(this.processResult());
   }
 
   handleListProducts() {
-
     // Check if "id" parameter is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
-    if(hasCategoryId) {
+    if (hasCategoryId) {
       // Get the "id" param string. Convert string to number using the "+" symbol
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
 
       // Get the "name" parm string
       this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
-    }
-    else {
+    } else {
       // No category id available ... default to category id 1
       this.currentCategoryId = 1;
-      this.currentCategoryName='Books';
+      this.currentCategoryName = 'Books';
     }
 
-    // Now get the products for the given category id 
-    this.productService.getProductList(this.currentCategoryId).subscribe(
-      data => { this.products = data; } )
+    //  Checking if we have a different category than previous
+    // Note: Angular will reuse a component if it is currently being viewed
 
+    // If we have a different category id than previous
+    // then reset page number back to 1
+    if (this.previousCategoryId != this.currentCategoryId) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currentCategoryId;
+
+    console.log(
+      'currentCategoryId = ' +
+        this.currentCategoryId +
+        ', thePageNumber = ' +
+        this.thePageNumber
+    );
+
+    // Now get the products for the given category id
+    this.productService
+      .getProductListPaginate(
+        this.thePageNumber - 1,
+        this.thePageSize,
+        this.currentCategoryId
+      )
+      .subscribe(this.processResult());
+  }
+
+  processResult() {
+    return (data: any) => {
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize = data.page.size;
+      this.theTotalElements = data.page.totalElements;
+    };
+  }
+
+  updatePageSize(pageSize: string) {
+    this.thePageSize = +pageSize;
+    this.thePageNumber = 1;
+    this.listProducts();
   }
 }

@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
-    <h4>Category: {{ currentCategoryName }}</h4>
+    <h4 style="color: white;">{{ currentCategoryName }}</h4>
     <hr />
     <div class="container-fluid">
       <div class="row">
@@ -14,23 +14,74 @@
             class="col-md-6 col-lg-3 mb-4"
           >
             <div class="product-box">
-              <a routerLink="/products/{{ tempProduct.id }}">
-                <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
+              <a
+                routerLink="/products/{{ tempProduct.id }}"
+                class="product-link"
+              >
+                <img
+                  src="{{ tempProduct.imageUrl }}"
+                  class="img-responsive"
+                  alt="{{ tempProduct.name }}"
+                />
               </a>
               <div class="product-details">
-                <!-- Move the product name link here to ensure it's under the image -->
-                <a routerLink="/products/{{ tempProduct.id }}">
+                <a
+                  routerLink="/products/{{ tempProduct.id }}"
+                  class="product-name"
+                >
                   <h1>{{ tempProduct.name }}</h1>
                 </a>
-                <div class="price">
-                  {{ tempProduct.unitPrice | currency : "GBP" }}
+                <div class="price-and-button">
+                  <div class="price">
+                    {{ tempProduct.unitPrice | currency : "GBP" }}
+                  </div>
+                  <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
-                <a href="#" class="primary-btn">Add to cart</a>
               </div>
             </div>
           </div>
         </ng-template>
       </div>
+
+      <!-- Begin footer -->
+      <div class="footer-pagination text-center">
+        <div class="row">
+          <div class="col-md-6 col-lg-3"></div>
+
+          <div
+            class="col-md-6 col-lg-3 d-flex align-items-center justify-content-end"
+          >
+            <div class="pagination-container">
+              <ngb-pagination
+                [(page)]="thePageNumber"
+                [pageSize]="thePageSize"
+                [collectionSize]="theTotalElements"
+                [maxSize]="5"
+                [boundaryLinks]="true"
+                (pageChange)="listProducts()"
+              >
+              </ngb-pagination>
+            </div>
+            <div class="ml-4 page-size-container">
+              <span style="color:white">Show:</span>
+              <select
+                #myPageSelect
+                (change)="updatePageSize(myPageSelect.value)"
+                class="custom-select"
+              >
+                <option>4</option>
+                <option>8</option>
+                <option selected="true">16</option>
+                <option>32</option>
+                <option>64</option>
+              </select>
+              <span class="ml-2" style="color: white">items per page</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- End footer -->
     </div>
   </div>
 </div>
