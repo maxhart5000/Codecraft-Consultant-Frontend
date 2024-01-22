@@ -57,7 +57,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Adjust the shadow values */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adjust the shadow values */
   outline: 2px solid rgba(0, 0, 0, 0.1); /* Adjust the outline values */
   transition: box-shadow 0.3s ease, outline 0.3s ease;
 }
@@ -254,12 +254,12 @@ a:hover {
 
 .page-wrapper {
   overflow: hidden;
-  background: #393E46;
+  background: #fff;
   padding-bottom: 8vh;
 }
 
 .page-container {
-  background: #393E46;
+  background: #fff;
   padding-left: 200px;
 }
 

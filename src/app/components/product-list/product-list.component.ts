@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -17,13 +19,14 @@ export class ProductListComponent implements OnInit {
 
   // New properties for pagination
   thePageNumber: number = 1;
-  thePageSize: number = 16;
+  thePageSize: number = 12;
   theTotalElements: number = 0;
 
   previousKeyword: string = '';
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute
   ) {}
 
@@ -126,5 +129,13 @@ export class ProductListComponent implements OnInit {
     this.thePageSize = +pageSize;
     this.thePageNumber = 1;
     this.listProducts();
+  } 
+
+  addToCart(product: Product) {
+    console.log('Adding to cart: ' + product.name + ', ' + product.unitPrice);
+
+    const theCartItem = new CartItem(product);
+
+    this.cartService.addToCart(theCartItem);
   }
 }

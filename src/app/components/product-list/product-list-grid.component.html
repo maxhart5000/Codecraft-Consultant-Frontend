@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
-    <h4 style="color: white;">{{ currentCategoryName }}</h4>
+    <h4 style="color: black;">{{ currentCategoryName }}</h4>
     <hr />
     <div class="container-fluid">
       <div class="row">
@@ -35,7 +35,7 @@
                   <div class="price">
                     {{ tempProduct.unitPrice | currency : "GBP" }}
                   </div>
-                  <button class="add-to-cart-btn">Add to Cart</button>
+                  <button (click)="addToCart(tempProduct)" href="#" class="add-to-cart-btn">Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -69,11 +69,11 @@
                 (change)="updatePageSize(myPageSelect.value)"
                 class="custom-select"
               >
-                <option>4</option>
                 <option>8</option>
-                <option selected="true">16</option>
+                <option selected="true">12</option>
+                <option>16</option>
                 <option>32</option>
-                <option>64</option>
+                <option></option>
               </select>
               <span class="ml-2" style="color: white">items per page</span>
             </div>
