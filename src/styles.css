@@ -1,140 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
-
-/* CSS styling for the pagination support */
-.footer-pagination {
-  margin-top: 20px;
-}
-
-.pagination-container {
-  margin-right: 15px;
-}
-
-.page-size-container {
-  display: flex;
-  align-items: center;
-  text-align: right;
-  margin-left: 15px;
-}
-
-.custom-select {
-  width: 60px;
-  padding: 8px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border: 1px solid #6c757d;
-  border-radius: 5px;
-  background-color: #f8f9fa;
-  color: #495057;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-}
-
-.custom-select:hover {
-  background-color: #e9ecef;
-  border-color: #6c757d;
-}
-
-.custom-select:focus {
-  outline: none;
-  border-color: #6c757d;
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
-}
-
-.page-size-container span {
-  margin-left: 5px;
-  color: #6c757d;
-  white-space: nowrap;
-  vertical-align: middle;
-  display: inline-block; /* Ensure inline-block display for horizontal alignment */
-}
-
-  
-/* CSS styling for grid layout of products */
-
-.product-box {
-  background-color: #EEEEEE;
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adjust the shadow values */
-  outline: 2px solid rgba(0, 0, 0, 0.1); /* Adjust the outline values */
-  transition: box-shadow 0.3s ease, outline 0.3s ease;
-}
-
-.product-link {
-  display: block;
-  position: relative;
-  text-decoration: none;
-}
-
-.img-responsive {
-  width: 100%;
-  height: auto;
-  border-bottom: 1px solid #ddd;
-  transition: transform 0.3s ease;
-}
-
-.product-box:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.img-responsive:hover {
-  transform: scale(1.05);
-}
-
-.product-details {
-  position: relative;
-}
-
-.product-name {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  transition: color 0.3s ease;
-}
-
-.product-details .product-name h1 {
-  font-size: 1.4em; /* Adjust the font size as needed */
-  margin-bottom: 10px; /* Optional: Add margin to improve spacing */
-}
-
-.product-name:hover {
-  color: #007bff;
-}
-
-.price-and-button {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.price {
-  color: #007bff;
-  font-weight: bold;
-  font-size: 1.5em;
-  margin-right: 100px !important;
-  margin-bottom: 10px !important;
-  margin-left: 20px !important;
-}
-
-.add-to-cart-btn {
-  position: absolute;
-  bottom: 10px; /* Adjust the distance from the bottom */
-  right: 10px; /* Adjust the distance from the right */
-  padding: 10px 16px;
-  background-color: #007bff;
-  color: #fff;
-  text-decoration: none;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-to-cart-btn:hover {
-  background-color: #0056b3;
-}
   
 /* 
  * ----------------------------
@@ -670,7 +534,61 @@ input.au-input.au-input-xl {
   background: #fff;
 }
 .main-content.page-m {
-  padding: 10% 15% !important;
+  padding: 10% 30% 10% 5%;
+}
+
+
+/* 
+ * ----------------------------
+ * Pagination
+ * ----------------------------
+ */
+
+.footer-pagination {
+  margin-top: 20px;
+}
+
+.pagination-container {
+  margin-right: 15px;
+}
+
+.page-size-container {
+  display: flex;
+  align-items: center;
+  text-align: right;
+  margin-left: 15px;
+}
+
+.custom-select {
+  width: 60px;
+  padding: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 1px solid #6c757d;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.custom-select:hover {
+  background-color: #e9ecef;
+  border-color: #6c757d;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #6c757d;
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+.page-size-container span {
+  margin-left: 5px;
+  color: #6c757d;
+  white-space: nowrap;
+  vertical-align: middle;
+  display: inline-block; /* Ensure inline-block display for horizontal alignment */
 }
 
 /* 
@@ -679,41 +597,91 @@ input.au-input.au-input-xl {
  * ----------------------------
  */
 
-.product-box img {
-  width: 150px;
+ .product-box {
+  background-color: #EEEEEE;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adjust the shadow values */
+  outline: 2px solid rgba(0, 0, 0, 0.1); /* Adjust the outline values */
+  transition: box-shadow 0.3s ease, outline 0.3s ease;
 }
 
-.items select {
-  width: 100px;
-  height: 40px;
-  border-radius: 40px;
-  padding-left: 15px;
-  margin-bottom: 10px;
-  outline: 0;
-  margin-left: 5px;
+.product-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
 }
-.product-box {
-  margin-bottom: 60px;
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+  transition: transform 0.3s ease;
 }
+
+.product-box:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.img-responsive:hover {
+  transform: scale(1.05);
+}
+
+.product-details {
+  position: relative;
+}
+
+.product-name {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.product-details .product-name h1 {
+  font-size: 1.4em; /* Adjust the font size as needed */
+  margin-bottom: 10px; /* Optional: Add margin to improve spacing */
+}
+
+.product-name:hover {
+  color: #007bff;
+}
+
+.price-and-button {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .price {
-  margin: 15px 0 0;
-  font-weight: 800;
-  color: #0da8e4;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-right: 100px !important;
+  margin-bottom: 10px !important;
+  margin-left: 20px !important;
 }
-.product-box h1 {
-  font-size: 18px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
-  font-weight: 600;
-  padding-top: 12px;
-  margin-bottom: 7px;
+
+.add-to-cart-btn {
+  position: absolute;
+  bottom: 10px; /* Adjust the distance from the bottom */
+  right: 10px; /* Adjust the distance from the right */
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.product-box h2 {
-  font-size: 15px;
-  padding-bottom: 0;
-  font-weight: 500;
-  color: #585858;
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
 }
+
+
 
 /* 
  * ----------------------------

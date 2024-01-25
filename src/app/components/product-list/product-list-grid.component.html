@@ -49,7 +49,7 @@
           <div class="col-md-6 col-lg-3"></div>
 
           <div
-            class="col-md-6 col-lg-3 d-flex align-items-center justify-content-end"
+            class="col-md-8 col-lg-5 d-flex align-items-center justify-content-end"
           >
             <div class="pagination-container">
               <ngb-pagination
@@ -63,7 +63,7 @@
               </ngb-pagination>
             </div>
             <div class="ml-4 page-size-container">
-              <span style="color:white">Show:</span>
+              <span>Show:</span>
               <select
                 #myPageSelect
                 (change)="updatePageSize(myPageSelect.value)"
@@ -75,7 +75,7 @@
                 <option>32</option>
                 <option></option>
               </select>
-              <span class="ml-2" style="color: white">items per page</span>
+              <span class="ml-2">items per page</span>
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart-details.component.css'],
 })
 export class CartDetailsComponent implements OnInit {
-
   cartItems: CartItem[] = [];
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -23,15 +22,13 @@ export class CartDetailsComponent implements OnInit {
     this.cartItems = this.cartService.cartItems;
 
     // Subscribe to the cart totalPrice
-    this.cartService.totalPrice.subscribe(
-      (data) => (this.totalPrice = data)
-    );
+    this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
 
     // Subscribe to the cart totalQuantity
     this.cartService.totalQuantity.subscribe(
       (data) => (this.totalQuantity = data)
     );
- 
+
     // Compute cart total price and quantity
     this.cartService.computeCartTotals();
   }

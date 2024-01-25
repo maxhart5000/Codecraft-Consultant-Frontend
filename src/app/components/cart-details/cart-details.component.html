@@ -56,9 +56,12 @@
                   <div class="col-8"></div>
                 </div>
               </div>
-              <button (click)="remove(tempCartItem)" class="btn btn-sm mt-2" style="background-color: orangered;">
-                <span>Remove all   </span><i class="fas fa-trash"></i>
-              </button> 
+              <button
+                (click)="remove(tempCartItem)"
+                class="primary-btn btn-sm mt-2"
+              >
+                <span>Remove all</span><i class="fas fa-trash"></i>
+              </button>
               <p class="mt-2">
                 Subtotal:
                 {{
@@ -74,6 +77,7 @@
               <p>Total Quantity: {{ totalQuantity }}</p>
               <p>Shipping: Free</p>
               <p>Total Price: {{ totalPrice | currency : "GBP" }}</p>
+              <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
             </td>
           </tr>
         </table>
