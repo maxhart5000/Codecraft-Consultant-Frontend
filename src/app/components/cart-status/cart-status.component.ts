@@ -17,12 +17,12 @@ export class CartStatusComponent implements OnInit {
     this.updateCartStatus();
   }
   updateCartStatus() {
-    // Subscribe tp the cart totalPrice
+    // Subscribe to the cart totalPrice
     this.cartService.totalPrice.subscribe(
       data => this.totalPrice = data
     );
 
-    // Subscribe tp the cart totalQuantity
+    // Subscribe to the cart totalQuantity
     this.cartService.totalQuantity.subscribe(
       data => this.totalQuantity = data
     );
