@@ -6,12 +6,30 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
+
   cartItems: CartItem[] = [];
+  
+  // Use this to store data by session. i.e. per browser session
+  // storage: Storage = sessionStorage;
+
+  // Use this to store data locally. i.e. to retain data even if browser session has ended
+  storage: Storage = localStorage;
 
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
-  constructor() {}
+  constructor() {
+
+    // Read the data from the storage
+    let data = JSON.parse(this.storage.getItem('cartItems')!)
+
+    if(data!=null){
+      this.cartItems = data;
+
+      // Compute the totals based on data read from storage
+      this.computeCartTotals();
+    }
+  }
 
   addToCart(theCartItem: CartItem) {
     // Check if we already have the item in our cart
@@ -40,6 +58,7 @@ export class CartService {
   }
 
   computeCartTotals() {
+
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
 
@@ -54,7 +73,15 @@ export class CartService {
 
     // Log cart data just for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
+
+    // Persist cart data
+    this.persistCartItems();
   }
+
+  persistCartItems() {
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log('Contents of the cart');
     for (let tempCartItem of this.cartItems) {
