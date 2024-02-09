@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { OKTA_AUTH, OktaAuthStateService } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
 import { CartItem } from 'src/app/common/cart-item';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -12,9 +14,22 @@ export class CartDetailsComponent implements OnInit {
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
-  constructor(private cartService: CartService) {}
+  isAuthenticated: any;
+
+  constructor(
+    private cartService: CartService,
+    private okataAuthService: OktaAuthStateService,
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth
+  ) {}
 
   ngOnInit(): void {
+     // Subscribe to authentication state changes
+     this.okataAuthService.authState$.subscribe(
+      (result) => {
+        this.isAuthenticated = result.isAuthenticated!;
+      }
+    );
+
     this.listCartDetails();
   }
   listCartDetails() {

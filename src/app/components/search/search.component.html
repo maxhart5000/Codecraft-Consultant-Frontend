@@ -4,8 +4,9 @@
     class="au-input au-input-xl"
     type="text"
     placeholder="Search for products..."
-    (keyup.enter) = "doSearch(myInput.value)"
+    (keyup.enter)="doSearch(myInput.value)"
   />
-  <button (click) = "doSearch(myInput.value)" class="au-btn-submit">
-    Search</button>
+  <button (click)="doSearch(myInput.value)" class="au-btn-submit">
+    Search
+  </button>
 </div>

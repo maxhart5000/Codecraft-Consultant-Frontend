@@ -77,7 +77,8 @@
               <p>Total Quantity: {{ totalQuantity }}</p>
               <p>Shipping: Free</p>
               <p>Total Price: {{ totalPrice | currency : "GBP" }}</p>
-              <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
+              <button *ngIf="isAuthenticated" routerLink="/checkout" class="btn btn-info">Checkout</button>
+              <button *ngIf="!isAuthenticated" routerLink="/login" class="btn btn-info">Login to Order</button>
             </td>
           </tr>
         </table>

@@ -6,9 +6,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-
   cartItems: CartItem[] = [];
-  
+
   // Use this to store data by session. i.e. per browser session
   // storage: Storage = sessionStorage;
 
@@ -19,11 +18,10 @@ export class CartService {
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
   constructor() {
-
     // Read the data from the storage
-    let data = JSON.parse(this.storage.getItem('cartItems')!)
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
 
-    if(data!=null){
+    if (data != null) {
       this.cartItems = data;
 
       // Compute the totals based on data read from storage
@@ -58,7 +56,6 @@ export class CartService {
   }
 
   computeCartTotals() {
-
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
 
