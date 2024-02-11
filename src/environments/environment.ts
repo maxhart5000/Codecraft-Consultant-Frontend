@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  hartcodeApiUrl: "https://localhost:8443/api"
+  hartcodeApiUrl: "https://localhost:8443/api",
+  stripePublishableKey: "pk_test_51OiQELATvYFbXSCB34rmjsTWWXru3y8HyTWELbXhfjFyD3Urdcxrz3JuaLxolHNucGnDsJ6qay1L48uX1bxILFmJ00uWnHNGeD"
 };
 
 /*

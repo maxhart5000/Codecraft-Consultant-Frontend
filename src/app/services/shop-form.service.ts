@@ -15,7 +15,6 @@ export class ShopFormService {
   constructor(private httpClient: HttpClient) {}
 
   getCountries(): Observable<Country[]> {
-    console.log('Im here');
     return this.httpClient
       .get<GetResponseCountries>(this.countriesUrl)
       .pipe(map((response) => response._embedded.countries));
