@@ -48,6 +48,8 @@ export class CheckoutComponent implements OnInit {
   cardElement: any;
   displayError: any = "";
 
+  isDisabled: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private shopFormService: ShopFormService,
@@ -137,7 +139,6 @@ export class CheckoutComponent implements OnInit {
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
-      console.log('Enter your details')
       return;
     }
 
@@ -191,9 +192,11 @@ export class CheckoutComponent implements OnInit {
     // Compute paymentInfo
     this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = 'GBP';
+    this.paymentInfo.receiptEmail=purchase.customer.email;
 
     console.log(`this.paymentInfo.amount:  ${this.paymentInfo.amount}`);
-
+    console.log(`this.paymentInfo.currency: ${this.paymentInfo.currency}`);
+    console.log(`this.paymentInfo.email: ${this.paymentInfo.receiptEmail}`);
     // Call REST API via the CheckoutService
     // If valid form then proceed
     // -> Create payment intent
@@ -201,31 +204,44 @@ export class CheckoutComponent implements OnInit {
     // -> Place order
 
     if (!this.checkoutFormGroup.invalid && this.displayError.textContent === '') {
-      console.log('creating payment intent');
+      this.isDisabled = true;
+      console.log('Creating payment intent');
       this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
         (paymentIntentResponse) => {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret, 
             {
               payment_method: {
-                card: this.cardElement
+                card: this.cardElement,
+                billing_details: {
+                  email: purchase.customer.email,
+                  name: `${purchase.customer.firstName} ${purchase.customer.lastName}`,
+                  address: {
+                    line1: purchase.billingAddress.street,
+                    city: purchase.billingAddress.town,
+                    state: purchase.billingAddress.state,
+                    postal_code: purchase.billingAddress.postCode,
+                    country: this.billingAddressCountry?.value.code
+                  }
+                }
               }
             }, 
             { handleActions: false})
             .then((result: any) => {
               console.log('at the then part')
               if(result.error) {
+                this.isDisabled = false;
                 // Inform the customer there was an error with payment
                 alert(`Error processing the payment: ${result.error.message}`);
               } else {
                 // Call the REST API via the checkoutService
-                
                 this.checkoutService.placeOrder(purchase).subscribe({
                   next: (response: any) => {
+                    this.isDisabled = false;
                     alert(`Order placed successfully. Your order tracking number is: ${response.orderTrackingNumber}`);
-                    
                     // Reset the cart
                     this.resetCart();
                   }, error: (err: any) => {
+                    this.isDisabled = false;
                     alert(`Error processing the order: ${err.error.message}`);
                   }
                 })
