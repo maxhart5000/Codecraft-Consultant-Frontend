@@ -98,7 +98,7 @@ export class CheckoutComponent implements OnInit {
           Validators.minLength(2),
           FormValidators.notOnlyWhitespace,
         ]),
-        town: new FormControl('', [
+        city: new FormControl('', [
           Validators.required,
           Validators.minLength(2),
           FormValidators.notOnlyWhitespace,
@@ -117,7 +117,7 @@ export class CheckoutComponent implements OnInit {
           Validators.minLength(2),
           FormValidators.notOnlyWhitespace,
         ]),
-        town: new FormControl('', [
+        city: new FormControl('', [
           Validators.required,
           Validators.minLength(2),
           FormValidators.notOnlyWhitespace,
@@ -139,6 +139,7 @@ export class CheckoutComponent implements OnInit {
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      console.log("Invalid entries");
       return;
     }
 
@@ -217,7 +218,7 @@ export class CheckoutComponent implements OnInit {
                   name: `${purchase.customer.firstName} ${purchase.customer.lastName}`,
                   address: {
                     line1: purchase.billingAddress.street,
-                    city: purchase.billingAddress.town,
+                    city: purchase.billingAddress.city,
                     state: purchase.billingAddress.state,
                     postal_code: purchase.billingAddress.postCode,
                     country: this.billingAddressCountry?.value.code
@@ -234,6 +235,8 @@ export class CheckoutComponent implements OnInit {
                 alert(`Error processing the payment: ${result.error.message}`);
               } else {
                 // Call the REST API via the checkoutService
+                console.log(purchase.billingAddress.city);
+                console.log(purchase.shippingAddress.city);
                 this.checkoutService.placeOrder(purchase).subscribe({
                   next: (response: any) => {
                     this.isDisabled = false;

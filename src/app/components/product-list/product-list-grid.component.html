@@ -18,6 +18,7 @@
                 routerLink="/products/{{ tempProduct.id }}"
                 class="product-link"
               >
+              
                 <img
                   src="{{ tempProduct.imageUrl }}"
                   class="img-responsive"
@@ -69,11 +70,11 @@
                 (change)="updatePageSize(myPageSelect.value)"
                 class="custom-select"
               >
-                <option>8</option>
-                <option selected="true">12</option>
-                <option>16</option>
-                <option>32</option>
-                <option></option>
+                <option>1</option>
+                <option>5</option>
+                <option selected="true">10</option>
+                <option>25</option>
+                <option>50</option>
               </select>
               <span class="ml-2">items per page</span>
             </div>

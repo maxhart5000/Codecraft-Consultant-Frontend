@@ -1,0 +1,23 @@
+.au-input-xl {
+    min-width: 500px;
+  }
+  
+  input.au-input.au-input-xl {
+    border-radius: 40px !important;
+    margin-right: 15px;
+  }
+  
+  .au-input {
+    line-height: 43px;
+    border: 1px solid #00ADB5;
+    font-size: 14px;
+    color: #666;
+    padding: 0 17px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }

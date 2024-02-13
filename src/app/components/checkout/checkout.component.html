@@ -132,10 +132,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2"><label>Town</label></div>
+            <div class="col-md-2"><label>City</label></div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="town" type="text" />
+                <input formControlName="city" type="text" />
                 <div
                   *ngIf="
                     shippingAddressTown?.invalid &&
@@ -146,10 +146,10 @@
                   <div
                     *ngIf="shippingAddressTown?.errors?.['required'] || shippingAddressTown?.errors?.['notOnlyWhitespace']"
                   >
-                    Town is required
+                    City is required
                   </div>
                   <div *ngIf="shippingAddressTown?.errors?.['minlength']">
-                    Town must be at least 2 characters long
+                    City must be at least 2 characters long
                   </div>
                 </div>
               </div>
@@ -277,10 +277,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2"><label>Town</label></div>
+            <div class="col-md-2"><label>City</label></div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="town" type="text" />
+                <input formControlName="city" type="text" />
                 <div
                   *ngIf="
                     billingAddressTown?.invalid &&
@@ -291,10 +291,10 @@
                   <div
                     *ngIf="billingAddressTown?.errors?.['required'] || billingAddressTown?.errors?.['notOnlyWhitespace']"
                   >
-                    Town is required
+                    City is required
                   </div>
                   <div *ngIf="billingAddressTown?.errors?.['minlength']">
-                    Town must be at least 2 characters long
+                    City must be at least 2 characters long
                   </div>
                 </div>
               </div>

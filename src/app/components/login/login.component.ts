@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   loadOktaSignInWidget(): void {
     this.oktaSignin = new OktaSignIn({
-      logo: 'assets/images/love.png',
+      logo: 'assets/images/logo/codecraft_logo_nobg.png',
       baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
       clientId: myAppConfig.oidc.clientId,
       redirectUri: myAppConfig.oidc.redirectUri,

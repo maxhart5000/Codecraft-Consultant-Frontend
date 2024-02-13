@@ -1,0 +1,136 @@
+/* 
+ * ----------------------------
+ * Products List
+ * ----------------------------
+ */
+
+ .product-box {
+    background-color: #EEEEEE;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adjust the shadow values */
+    outline: 2px solid rgba(0, 0, 0, 0.1); /* Adjust the outline values */
+    transition: box-shadow 0.3s ease, outline 0.3s ease;
+  }
+  
+  .product-link {
+    display: block;
+    position: relative;
+    text-decoration: none;
+  }
+  
+  .product-box:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .img-responsive:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-details {
+    position: relative;
+  }
+  
+  .product-name {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .product-details .product-name h1 {
+    font-size: 1.4em; /* Adjust the font size as needed */
+    margin-bottom: 10px; /* Optional: Add margin to improve spacing */
+  }
+  
+  .product-name:hover {
+    color: #007bff;
+  }
+  
+  .price-and-button {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .price {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-right: 100px !important;
+    margin-bottom: 10px !important;
+    margin-left: 20px !important;
+  }
+  
+  .add-to-cart-btn {
+    position: absolute;
+    bottom: 10px; /* Adjust the distance from the bottom */
+    right: 10px; /* Adjust the distance from the right */
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #0056b3;
+  }
+
+  
+/* 
+ * ----------------------------
+ * Pagination
+ * ----------------------------
+ */
+
+ .footer-pagination {
+    margin-top: 20px;
+  }
+  
+  .pagination-container {
+    margin-right: 15px;
+  }
+  
+  .page-size-container {
+    display: flex;
+    align-items: center;
+    text-align: right;
+    margin-left: 15px;
+  }
+  
+  .custom-select {
+    width: 60px;
+    padding: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #495057;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+  
+  .custom-select:hover {
+    background-color: #e9ecef;
+    border-color: #6c757d;
+  }
+  
+  .custom-select:focus {
+    outline: none;
+    border-color: #6c757d;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+  }
+  
+  .page-size-container span {
+    margin-left: 5px;
+    color: #6c757d;
+    white-space: nowrap;
+    vertical-align: middle;
+    display: inline-block; /* Ensure inline-block display for horizontal alignment */
+  }

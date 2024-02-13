@@ -1,0 +1,30 @@
+ /* 
+ * ----------------------------
+ * Left Menu Bar
+ * ----------------------------
+ */
+  
+  .menu-sidebar-content {
+    position: relative;
+    height: -webkit-calc(100vh - 75px);
+    height: -moz-calc(100vh - 75px);
+    height: calc(100vh - 75px);
+  }
+  
+  .navbar-sidebar {
+    padding: 20px;
+    padding-bottom: 0;
+  }
+  
+  .navbar-sidebar .navbar-list li a {
+    display: block;
+    color: black;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
+    padding: 10px 0;
+    text-decoration: none;
+  }
+  
+  .navbar-sidebar .navbar-list li a:hover {
+    color: orange;
+  }
