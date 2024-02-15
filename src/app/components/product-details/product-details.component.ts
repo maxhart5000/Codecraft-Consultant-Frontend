@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
+  // Product details
   product!: Product;
 
   constructor(
@@ -20,26 +21,31 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Load product details when component initializes
     this.route.paramMap.subscribe(() => {
       this.handleProductDetails();
     });
   }
+
+  // Method to handle fetching product details
   handleProductDetails() {
-    // Get the "id" param string. Convert string to number using "+" symbol
+    // Get the "id" param string and convert it to a number
     const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
 
+    // Fetch product details from the service
     this.productService.getProduct(theProductId).subscribe((data) => {
       this.product = data;
     });
   }
 
+  // Method to add the current product to the cart
   addToCart() {
     console.log(
       'Adding to cart: ' + this.product.name + ', ' + this.product.unitPrice
     );
 
+    // Create a CartItem from the current product and add it to the cart
     const cartItem = new CartItem(this.product);
-
     this.cartService.addToCart(cartItem);
   }
 }

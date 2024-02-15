@@ -1,42 +1,28 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
-    <h4 style="color: black;">{{ currentCategoryName }}</h4>
+    <h4 class="text-dark">{{ currentCategoryName }}</h4>
     <hr />
     <div class="container-fluid">
       <div class="row">
-        <div *ngIf="products.length === 0; else myElseBlock">
+        <div *ngIf="products.length === 0; else myElseBlock" class="col-12">
           <h1>No products found</h1>
         </div>
         <ng-template #myElseBlock>
           <!-- This block will only be shown if products array is not empty -->
-          <div
-            *ngFor="let tempProduct of products"
-            class="col-md-6 col-lg-3 mb-4"
-          >
-            <div class="product-box">
-              <a
-                routerLink="/products/{{ tempProduct.id }}"
-                class="product-link"
-              >
-              
-                <img
-                  src="{{ tempProduct.imageUrl }}"
-                  class="img-responsive"
-                  alt="{{ tempProduct.name }}"
-                />
+          <div *ngFor="let tempProduct of products" class="col-md-6 col-lg-3 mb-4">
+            <div class="product-box border rounded p-3">
+              <a routerLink="/products/{{ tempProduct.id }}" class="product-link">
+                <img [src]="tempProduct.imageUrl" class="img-fluid" alt="{{ tempProduct.name }}" />
               </a>
-              <div class="product-details">
-                <a
-                  routerLink="/products/{{ tempProduct.id }}"
-                  class="product-name"
-                >
-                  <h1>{{ tempProduct.name }}</h1>
+              <div class="product-details mt-3">
+                <a routerLink="/products/{{ tempProduct.id }}" class="product-name text-dark">
+                  <h5>{{ tempProduct.name }}</h5>
                 </a>
-                <div class="price-and-button">
-                  <div class="price">
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                  <div class="price font-weight-bold">
                     {{ tempProduct.unitPrice | currency : "GBP" }}
                   </div>
-                  <button (click)="addToCart(tempProduct)" href="#" class="add-to-cart-btn">Add to Cart</button>
+                  <button (click)="addToCart(tempProduct)" class="btn btn-primary add-to-cart-btn">Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -45,31 +31,19 @@
       </div>
 
       <!-- Begin footer -->
-      <div class="footer-pagination text-center">
+      <div class="footer-pagination text-center mt-4">
         <div class="row">
           <div class="col-md-6 col-lg-3"></div>
 
-          <div
-            class="col-md-8 col-lg-5 d-flex align-items-center justify-content-end"
-          >
+          <div class="col-md-8 col-lg-5 d-flex align-items-center justify-content-end">
             <div class="pagination-container">
-              <ngb-pagination
-                [(page)]="thePageNumber"
-                [pageSize]="thePageSize"
-                [collectionSize]="theTotalElements"
-                [maxSize]="5"
-                [boundaryLinks]="true"
-                (pageChange)="listProducts()"
-              >
+              <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"
+                [maxSize]="5" [boundaryLinks]="true" (pageChange)="listProducts()">
               </ngb-pagination>
             </div>
             <div class="ml-4 page-size-container">
               <span>Show:</span>
-              <select
-                #myPageSelect
-                (change)="updatePageSize(myPageSelect.value)"
-                class="custom-select"
-              >
+              <select #myPageSelect (change)="updatePageSize(myPageSelect.value)" class="custom-select">
                 <option>1</option>
                 <option>5</option>
                 <option selected="true">10</option>
@@ -81,7 +55,6 @@
           </div>
         </div>
       </div>
-
       <!-- End footer -->
     </div>
   </div>

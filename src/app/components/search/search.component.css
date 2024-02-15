@@ -1,23 +1,28 @@
 .au-input-xl {
-    min-width: 500px;
-  }
-  
-  input.au-input.au-input-xl {
-    border-radius: 40px !important;
-    margin-right: 15px;
-  }
-  
-  .au-input {
-    line-height: 43px;
-    border: 1px solid #00ADB5;
-    font-size: 14px;
-    color: #666;
-    padding: 0 17px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-  }
+  min-width: 300px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #666;
+  transition: border-color 0.3s ease;
+}
+
+.au-btn-submit {
+  margin-left: 10px;
+  min-width: 80px;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  background: green;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+  padding: 12px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.au-btn-submit:hover {
+  background-color: #3c83c4;
+}

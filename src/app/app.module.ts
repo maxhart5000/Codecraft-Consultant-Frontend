@@ -15,7 +15,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
-import { OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG, OktaAuthGuard } from '@okta/okta-angular';
+import { OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG, OktaAuthGuard, OktaConfig } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
@@ -26,6 +26,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 // Initialize Okta authentication configuration
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
+const moduleConfig: OktaConfig = { oktaAuth };
 
 // Function to redirect unauthorized users to the login page
 function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
@@ -72,11 +73,11 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    OktaAuthModule,
+    OktaAuthModule.forRoot(moduleConfig),
   ],
   providers: [
     ProductService,
-    { provide: OKTA_CONFIG, useValue: { oktaAuth } }, // Provide Okta configuration
+    
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, // Provide HTTP interceptor
   ],
   bootstrap: [AppComponent], // Bootstrap the root component

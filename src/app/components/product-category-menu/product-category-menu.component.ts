@@ -8,16 +8,20 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-category-menu.component.css'],
 })
 export class ProductCategoryMenuComponent implements OnInit {
+  // Array to hold product categories
   productCategories: ProductCategory[] = [];
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
+    // Load product categories when component initializes
     this.listProductsCategories();
   }
 
+  // Fetch product categories from the service
   listProductsCategories() {
     this.productService.getProductCategories().subscribe((data) => {
+      // Assign fetched product categories to the array
       this.productCategories = data;
     });
   }

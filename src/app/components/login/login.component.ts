@@ -1,4 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  NgZone,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { OKTA_AUTH } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 import OktaSignIn from '@okta/okta-signin-widget';
@@ -11,30 +20,20 @@ import myAppConfig from 'src/app/config/my-app-config';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  oktaSignin: any;
 
-  constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {}
+  oktaSignIn: any;
 
-  ngOnInit(): void {
-    this.loadOktaSignInWidget();
-  }
-
-  loadOktaSignInWidget(): void {
-    this.oktaSignin = new OktaSignIn({
-      logo: 'assets/images/logo/codecraft_logo_nobg.png',
-      baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
+  constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth, private router: Router) {
+     this.oktaSignIn = new OktaSignIn({
+      logo: 'assets/images/logo/codecraft_logo.png',
       clientId: myAppConfig.oidc.clientId,
       redirectUri: myAppConfig.oidc.redirectUri,
-      authParams: {
-        pkce: true,
-        issuer: myAppConfig.oidc.issuer,
-        scopes: myAppConfig.oidc.scopes,
-      },
+      issuer: myAppConfig.oidc.issuer,
     });
+  }
 
-    this.oktaSignin.remove();
-
-    this.oktaSignin.renderEl(
+  ngOnInit(): void {
+    this.oktaSignIn.renderEl(
       {
         el: '#okta-sign-in-widget',
       }, // this name should be same as div tag id in login.component.html

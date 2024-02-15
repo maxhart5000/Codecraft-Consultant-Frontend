@@ -1,9 +1,13 @@
+<!-- Cart Status HTML -->
 <div class="cart-area d-n">
+  <!-- Link to Cart Details page -->
   <a routerLink="/cart-details">
+    <!-- Shopping Cart Icon -->
+    <i class="fas fa-shopping-cart"></i>
+    <!-- Total Price and Quantity -->
     <div class="total">
-      {{ totalPrice | currency : "GBP" }}
-      <span>{{ totalQuantity }}</span>
+      {{ totalPrice | currency : "GBP" }} <!-- Display total price -->
+      <span>{{ totalQuantity }}</span> <!-- Display total quantity -->
     </div>
-    <i class="fas fa-shopping-cart"> </i>
   </a>
 </div>

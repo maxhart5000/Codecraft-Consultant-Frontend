@@ -1,3 +1,8 @@
+/*
+ * Product List TypeScript
+ * Handles listing and pagination of products
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartItem } from 'src/app/common/cart-item';
@@ -11,17 +16,17 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
+  // Properties for product list and pagination
   products: Product[] = [];
   currentCategoryId: number = 1;
-  previousCategoryId: number = 1;
   currentCategoryName: string = '';
   searchMode: boolean = false;
-
-  // New properties for pagination
   thePageNumber: number = 1;
   thePageSize: number = 10;
   theTotalElements: number = 0;
 
+  // Previous category and keyword for pagination
+  previousCategoryId: number = 1;
   previousKeyword: string = '';
 
   constructor(
@@ -31,14 +36,18 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Subscribe to route changes
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
   }
 
+  // Method to handle listing products based on route parameters
   listProducts() {
+    // Check if search mode is active
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
+    // Call appropriate method based on search mode
     if (this.searchMode) {
       this.handleSearchProducts();
     } else {
@@ -46,23 +55,19 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  // Method to handle searching products
   handleSearchProducts() {
+    // Retrieve keyword from route parameters
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
-    // If we have a different keyword than previous
-    // then set thePageNumber to 1
-
+    // Handle pagination for search results
     if (this.previousKeyword != theKeyword) {
       this.thePageNumber = 1;
     }
 
     this.previousKeyword = theKeyword;
 
-    console.log(
-      'keyword = ' + theKeyword + ', thePageNumber = ' + this.thePageNumber
-    );
-
-    // Now search for products using given keyword
+    // Call productService to search for products
     this.productService
       .searchProductsPaginate(
         this.thePageNumber - 1,
@@ -72,41 +77,28 @@ export class ProductListComponent implements OnInit {
       .subscribe(this.processResult());
   }
 
+  // Method to handle listing products by category
   handleListProducts() {
-    // Check if "id" parameter is available
+    // Retrieve category id from route parameters
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
+    // Set category id and name
     if (hasCategoryId) {
-      // Get the "id" param string. Convert string to number using the "+" symbol
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
-
-      // Get the "name" parm string
       this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
     } else {
-      // No category id available ... default to category id 1
       this.currentCategoryId = 1;
-      this.currentCategoryName = 'Books';
+      this.currentCategoryName = 'Java';
     }
 
-    //  Checking if we have a different category than previous
-    // Note: Angular will reuse a component if it is currently being viewed
-
-    // If we have a different category id than previous
-    // then reset page number back to 1
+    // Handle pagination for category products
     if (this.previousCategoryId != this.currentCategoryId) {
       this.thePageNumber = 1;
     }
 
     this.previousCategoryId = this.currentCategoryId;
 
-    console.log(
-      'currentCategoryId = ' +
-        this.currentCategoryId +
-        ', thePageNumber = ' +
-        this.thePageNumber
-    );
-
-    // Now get the products for the given category id
+    // Call productService to retrieve products by category
     this.productService
       .getProductListPaginate(
         this.thePageNumber - 1,
@@ -116,6 +108,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(this.processResult());
   }
 
+  // Method to process result from productService
   processResult() {
     return (data: any) => {
       this.products = data._embedded.products;
@@ -125,17 +118,16 @@ export class ProductListComponent implements OnInit {
     };
   }
 
+  // Method to update page size
   updatePageSize(pageSize: string) {
     this.thePageSize = +pageSize;
     this.thePageNumber = 1;
     this.listProducts();
   }
 
+  // Method to add product to cart
   addToCart(product: Product) {
-    console.log('Adding to cart: ' + product.name + ', ' + product.unitPrice);
-
     const theCartItem = new CartItem(product);
-
     this.cartService.addToCart(theCartItem);
   }
 }

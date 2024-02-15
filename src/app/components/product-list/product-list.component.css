@@ -1,136 +1,82 @@
-/* 
- * ----------------------------
- * Products List
- * ----------------------------
- */
+.product-box {
+  transition: box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
- .product-box {
-    background-color: #EEEEEE;
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adjust the shadow values */
-    outline: 2px solid rgba(0, 0, 0, 0.1); /* Adjust the outline values */
-    transition: box-shadow 0.3s ease, outline 0.3s ease;
-  }
-  
-  .product-link {
-    display: block;
-    position: relative;
-    text-decoration: none;
-  }
-  
-  .product-box:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .img-responsive:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-details {
-    position: relative;
-  }
-  
-  .product-name {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s ease;
-  }
-  
-  .product-details .product-name h1 {
-    font-size: 1.4em; /* Adjust the font size as needed */
-    margin-bottom: 10px; /* Optional: Add margin to improve spacing */
-  }
-  
-  .product-name:hover {
-    color: #007bff;
-  }
-  
-  .price-and-button {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .price {
-    color: #007bff;
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-right: 100px !important;
-    margin-bottom: 10px !important;
-    margin-left: 20px !important;
-  }
-  
-  .add-to-cart-btn {
-    position: absolute;
-    bottom: 10px; /* Adjust the distance from the bottom */
-    right: 10px; /* Adjust the distance from the right */
-    padding: 10px 16px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-to-cart-btn:hover {
-    background-color: #0056b3;
-  }
+.product-box:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
 
-  
-/* 
- * ----------------------------
- * Pagination
- * ----------------------------
- */
+.product-box img {
+  width: 100%;
+  height: auto;
+}
 
- .footer-pagination {
-    margin-top: 20px;
-  }
-  
-  .pagination-container {
-    margin-right: 15px;
-  }
-  
-  .page-size-container {
-    display: flex;
-    align-items: center;
-    text-align: right;
-    margin-left: 15px;
-  }
-  
-  .custom-select {
-    width: 60px;
-    padding: 8px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 1px solid #6c757d;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    color: #495057;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  }
-  
-  .custom-select:hover {
-    background-color: #e9ecef;
-    border-color: #6c757d;
-  }
-  
-  .custom-select:focus {
-    outline: none;
-    border-color: #6c757d;
-    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
-  }
-  
-  .page-size-container span {
-    margin-left: 5px;
-    color: #6c757d;
-    white-space: nowrap;
-    vertical-align: middle;
-    display: inline-block; /* Ensure inline-block display for horizontal alignment */
-  }
+.product-details {
+  padding: 15px;
+}
+
+.product-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.price {
+  font-size: 1.3rem;
+  color: #0da8e4;
+  font-weight: bold;
+}
+
+.add-to-cart-btn {
+  margin-left: 10px;
+  min-width: 80px;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  background: #0da8e4;
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  padding: 12px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #3c83c4;
+}
+
+.pagination-container {
+  margin-top: 30px;
+}
+
+.page-size-container {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-left:20px;
+}
+
+.custom-select{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.footer-pagination {
+  margin-top: 50px;
+}
+
+.footer-pagination .pagination-link {
+  font-size: 1.2rem;
+  color: #0da8e4;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footer-pagination .pagination-link:hover {
+  color: #0c87b8;
+}

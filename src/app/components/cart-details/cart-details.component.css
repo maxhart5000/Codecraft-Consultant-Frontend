@@ -1,149 +1,84 @@
-/* 
- * ----------------------------
- * Shopping Cart Checkout
- * ----------------------------
- */
+.main-content {
+  margin-top: 50px;
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
 
- .form-area {
-    background: #e5e5e5;
-    position: relative;
-    margin-bottom: 45px;
-    padding: 50px 20px;
-    border: 3px solid #ccc;
-  }
-  .form-area h3 {
-    position: absolute;
-    top: -26px;
-    left: 13px;
-    background: #e5e5e5;
-    padding: 10px 20px;
-    font-weight: 500;
-    z-index: 23;
-    display: inline-block;
-  }
-  .input-space {
-    margin-bottom: 20px;
-  }
-  .input-space label {
-    padding-left: 31px;
-    font-size: 14px;
-    margin-bottom: 50px;
-  }
-  .input-space input[type="text"] {
-    width: 100%;
-    height: 40px;
-    border-radius: 30px;
-    outline: 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  .input-space select {
-    width: 100%;
-    height: 40px;
-    border-radius: 30px;
-    outline: 0;
-    padding: 0 10px;
-    border: 1px solid #ccc;
-  }
-  .au-checkbox {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  .au-checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .au-checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 22px;
-    width: 22px;
-    background-color: #fff !important;
-    border: 2px solid #e5e5e5;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-  }
-  .au-checkbox:hover input ~ .au-checkmark {
-    background-color: transparent;
-  }
-  .au-checkbox input:checked ~ .au-checkmark {
-    background-color: #fff;
-  }
-  .au-checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  .au-checkbox input:checked ~ .au-checkmark:after {
-    display: block;
-  }
-  label.date {
-    padding-top: 8px;
-  }
-  .au-checkbox .au-checkmark:after {
-    left: 5px;
-    top: -1px;
-    width: 9px;
-    height: 15px;
-    border: solid #0da8e4;
-    border-width: 0 4px 4px 0;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  option:first {
-    color: #ccc;
-  }
-  select {
-    color: #828482;
-  }
-  
-  /* 
-   * ----------------------------
-   * Shopping Cart Details
-   * ----------------------------
-   */
-  
-  .table {
-    margin: 0;
-  }
-  table.table.table-bordered {
-    border: 1px solid #ccc;
-    background: #fff;
-  }
-  .table-bordered td,
-  .table-bordered th {
-    border: 1px solid #dee2e6;
-  }
-  table.table.table-bordered th {
-    background: #0da8e4;
-    color: #fff;
-    font-size: 14px;
-    padding: 7px;
-  }
-  .table-responsive {
-    padding-right: 1px;
-  }
-  .items select {
-    width: 100px;
-    height: 40px;
-    border-radius: 40px;
-    padding-left: 15px;
-    margin-bottom: 10px;
-    outline: 0;
-    margin-left: 5px;
-  }
+.alert {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  color: #495057;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert h3 {
+  margin-bottom: 10px;
+  color: #343a40;
+}
+
+.alert p {
+  margin-bottom: 5px;
+}
+
+.table {
+  margin: 0;
+}
+
+.table-bordered th {
+  background: #007bff;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.table-bordered td,
+.table-bordered th {
+  border: 1px solid #dee2e6;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.items {
+  margin-top: 20px;
+}
+
+.quantity-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity-controls .btn {
+  padding: 10px 20px;
+}
+
+.primary-btn {
+  margin-left: 5px;
+  min-width: 60px;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  background: #0da8e4;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  padding: 12px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.primary-btn:hover {
+  background-color: #3c83c4;
+}
+
+.subtotal {
+  font-size: 18px;
+  position: relative;
+  bottom: 0;
+  left: 0;
+}

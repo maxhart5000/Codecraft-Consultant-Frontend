@@ -1,11 +1,11 @@
 <div class="page-wrapper">
   <!-- START MENU SIDEBAR -->
   <!-- Sidebar menu displayed only on large screens -->
-  <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
+  <aside class="menu-sidebar d-none d-lg-block bg-light">
+    <div class="logo p-3">
       <!-- Logo with a link to the products page -->
       <a routerLink="/products">
-        <img src="assets/images/logo/codecraft_logo.png" alt="codecraft" />
+        <img src="assets/images/logo/codecraft_logo.png" alt="codecraft" class="img-fluid" />
       </a>
     </div>
     <!-- Product category menu component -->
@@ -16,10 +16,10 @@
   <!-- START PAGE CONTAINER -->
   <div class="page-container">
     <!-- START HEADER DESKTOP -->
-    <header class="header-desktop">
+    <header class="header-desktop bg-white shadow-sm">
       <div class="section-content section-content-p30">
         <div class="container-fluid">
-          <div class="header-wrap">
+          <div class="header-wrap d-flex justify-content-between align-items-center">
             <!-- Search component -->
             <app-search></app-search>
 
@@ -43,11 +43,13 @@
 <!-- END PAGE CONTAINER -->
 
 <!-- Footer section -->
-<footer>
-  <ul>
-    <!-- About Us link -->
-    <li><a href="#">About Us</a></li>
-    <!-- Help link -->
-    <li><a href="#">Help</a></li>
-  </ul>
+<footer class="bg-dark text-white py-3">
+  <div class="container">
+    <ul class="list-unstyled d-flex justify-content-center">
+      <!-- About Us link -->
+      <li class="mx-3"><a href="#" class="text-white">About Us</a></li>
+      <!-- Help link -->
+      <li class="mx-3"><a href="#" class="text-white">Help</a></li>
+    </ul>
+  </div>
 </footer>
