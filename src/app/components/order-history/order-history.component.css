@@ -1,5 +1,7 @@
 .main-content {
-    margin-top: 50px; 
+    margin-top: 5px; 
+    font-size: 16px;
+    font-weight: bold;
   }
  
   .section-content {
@@ -38,12 +40,20 @@
   }
 
   .alert {
-    margin-top: 20px; 
-    padding: 15px;
-    background-color: #f8d7da; 
-    border: 1px solid #f5c6cb; 
-    color: #721c24; 
-    border-radius: 5px;
-    font-weight: bold;
+    margin-top: 0px;
+    border-radius: 10px;
+    padding: 40px;
+    background-color: #ffeaa7;
+    color: #495057;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   
+  .alert h3 {
+    margin-bottom: 10px;
+    color: #343a40;
+  }
+  
+  .alert p {
+    margin-bottom: 5px;
+  }

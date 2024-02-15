@@ -14,14 +14,9 @@ export class ProductService {
 
   private categoryUrl = environment.hartcodeApiUrl + '/product-category';
 
+  private searchUrl = '';
+
   constructor(private httpClient: HttpClient) {}
-
-  getProductList(categoryId: number): Observable<Product[]> {
-    // Need to build url based on category id
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
-
-    return this.getProducts(searchUrl);
-  }
 
   getProductListPaginate(
     thePage: number,
@@ -29,13 +24,14 @@ export class ProductService {
     categoryId: number
   ): Observable<GetResponseProduct> {
     // Need to build url based on category id, page and size
-    const searchUrl =
+
+    this.searchUrl =
       `${this.baseUrl}/search/findByCategoryId?id=${categoryId}` +
       `&page=${thePage}&size=${thePageSize}`;
 
-      console.log(`Getting products from -> ${searchUrl}`);
+    console.log(`Getting products from -> ${this.searchUrl}`);
 
-    return this.httpClient.get<GetResponseProduct>(searchUrl);
+    return this.httpClient.get<GetResponseProduct>(this.searchUrl);
   }
 
   getProductCategories(): Observable<ProductCategory[]> {
@@ -46,9 +42,9 @@ export class ProductService {
 
   searchProducts(keyword: string): Observable<Product[]> {
     // Need to build url based on keyowrd
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
+    this.searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
 
-    return this.getProducts(searchUrl);
+    return this.getProducts(this.searchUrl);
   }
 
   searchProductsPaginate(

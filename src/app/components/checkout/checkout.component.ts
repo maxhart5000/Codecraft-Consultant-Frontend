@@ -352,8 +352,8 @@ export class CheckoutComponent implements OnInit {
   get shippingAddressStreet() {
     return this.checkoutFormGroup.get('shippingAddress.street');
   }
-  get shippingAddressTown() {
-    return this.checkoutFormGroup.get('shippingAddress.town');
+  get shippingAddressCity() {
+    return this.checkoutFormGroup.get('shippingAddress.city');
   }
   get shippingAddressState() {
     return this.checkoutFormGroup.get('shippingAddress.state');
@@ -367,8 +367,8 @@ export class CheckoutComponent implements OnInit {
   get billingAddressStreet() {
     return this.checkoutFormGroup.get('billingAddress.street');
   }
-  get billingAddressTown() {
-    return this.checkoutFormGroup.get('billingAddress.town');
+  get billingAddressCity() {
+    return this.checkoutFormGroup.get('billingAddress.city');
   }
   get billingAddressState() {
     return this.checkoutFormGroup.get('billingAddress.state');

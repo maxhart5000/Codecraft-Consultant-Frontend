@@ -24,6 +24,7 @@ export class ProductListComponent implements OnInit {
   thePageNumber: number = 1;
   thePageSize: number = 10;
   theTotalElements: number = 0;
+  theKeyword: string = '';
 
   // Previous category and keyword for pagination
   previousCategoryId: number = 1;
@@ -45,34 +46,42 @@ export class ProductListComponent implements OnInit {
   // Method to handle listing products based on route parameters
   listProducts() {
     // Check if search mode is active
-    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    this.searchMode = this.route.snapshot.paramMap.has('id');
 
-    // Call appropriate method based on search mode
+    // Call appropriate method based on have id or not
     if (this.searchMode) {
-      this.handleSearchProducts();
-    } else {
       this.handleListProducts();
+    } else {
+      this.handleSearchProducts();
     }
   }
 
   // Method to handle searching products
   handleSearchProducts() {
     // Retrieve keyword from route parameters
-    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    this.theKeyword = this.route.snapshot.paramMap.get('keyword')!;
+    if (this.theKeyword === null || this.theKeyword === "") {
+      this.currentCategoryName = "All Products";
+      this.theKeyword = '';
+    }
+    else {
+      this.currentCategoryName = "Search: " + this.theKeyword;
+    }
+    console.log('theKeyword = ' + this.theKeyword);
 
     // Handle pagination for search results
-    if (this.previousKeyword != theKeyword) {
+    if (this.previousKeyword != this.theKeyword) {
       this.thePageNumber = 1;
     }
 
-    this.previousKeyword = theKeyword;
+    this.previousKeyword = this.theKeyword;
 
     // Call productService to search for products
     this.productService
       .searchProductsPaginate(
         this.thePageNumber - 1,
         this.thePageSize,
-        theKeyword
+        this.theKeyword
       )
       .subscribe(this.processResult());
   }
@@ -83,13 +92,9 @@ export class ProductListComponent implements OnInit {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
     // Set category id and name
-    if (hasCategoryId) {
-      this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
-      this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
-    } else {
-      this.currentCategoryId = 1;
-      this.currentCategoryName = 'Java';
-    }
+
+    this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+    this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
 
     // Handle pagination for category products
     if (this.previousCategoryId != this.currentCategoryId) {

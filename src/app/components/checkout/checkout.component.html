@@ -138,17 +138,17 @@
                 <input formControlName="city" type="text" />
                 <div
                   *ngIf="
-                    shippingAddressTown?.invalid &&
-                    (shippingAddressTown?.dirty || shippingAddressTown?.touched)
+                    shippingAddressCity?.invalid &&
+                    (shippingAddressCity?.dirty || shippingAddressCity?.touched)
                   "
                   class="alert alert-danger mt-1"
                 >
                   <div
-                    *ngIf="shippingAddressTown?.errors?.['required'] || shippingAddressTown?.errors?.['notOnlyWhitespace']"
+                    *ngIf="shippingAddressCity?.errors?.['required'] || shippingAddressCity?.errors?.['notOnlyWhitespace']"
                   >
                     City is required
                   </div>
-                  <div *ngIf="shippingAddressTown?.errors?.['minlength']">
+                  <div *ngIf="shippingAddressCity?.errors?.['minlength']">
                     City must be at least 2 characters long
                   </div>
                 </div>
@@ -283,17 +283,17 @@
                 <input formControlName="city" type="text" />
                 <div
                   *ngIf="
-                    billingAddressTown?.invalid &&
-                    (billingAddressTown?.dirty || billingAddressTown?.touched)
+                    billingAddressCity?.invalid &&
+                    (billingAddressCity?.dirty || billingAddressCity?.touched)
                   "
                   class="alert alert-danger mt-1"
                 >
                   <div
-                    *ngIf="billingAddressTown?.errors?.['required'] || billingAddressTown?.errors?.['notOnlyWhitespace']"
+                    *ngIf="billingAddressCity?.errors?.['required'] || billingAddressCity?.errors?.['notOnlyWhitespace']"
                   >
                     City is required
                   </div>
-                  <div *ngIf="billingAddressTown?.errors?.['minlength']">
+                  <div *ngIf="billingAddressCity?.errors?.['minlength']">
                     City must be at least 2 characters long
                   </div>
                 </div>

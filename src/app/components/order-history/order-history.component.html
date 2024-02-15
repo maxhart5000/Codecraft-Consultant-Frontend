@@ -1,8 +1,8 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
-      <h3>Order History</h3>
       <div *ngIf="orderHistoryList.length > 0">
+      <h3>Order History</h3>
         <table class="table table-bordered">
           <tr>
             <th width="20%">Order Tracking Number</th>
@@ -29,7 +29,7 @@
 
       <!-- If order history is empty then display a message -->
 
-      <div *ngIf="orderHistoryList.length == 0" class="alert alert-warning col-md-12" role="alert">
+      <div *ngIf="orderHistoryList.length == 0" class="alert alert-warning" role="alert">
         No Order History
       </div>
     </div>
