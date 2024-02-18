@@ -21,7 +21,7 @@ export class OrderHistoryComponent implements OnInit {
     const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
     console.log('Users email: ' + theEmail);
-    this.orderHistoryService.getOrderHistory(theEmail).subscribe((data) => {
+    this.orderHistoryService.getOrderHistory(theEmail).subscribe((data: any) => {
       this.orderHistoryList = data._embedded.orders;
     });
   }

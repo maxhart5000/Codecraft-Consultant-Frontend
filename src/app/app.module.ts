@@ -1,3 +1,4 @@
+// Import necessary modules and components from Angular
 import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -14,47 +15,61 @@ import { CartDetailsComponent } from './components/cart-details/cart-details.com
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
-import { LoginStatusComponent } from './components/login-status/login-status.component';
-import { OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG, OktaAuthGuard, OktaConfig } from '@okta/okta-angular';
+import { OktaAuthModule, OktaCallbackComponent, OktaAuthGuard, OktaConfig } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { OrderHistory } from './common/order-history';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
 
-// Initialize Okta authentication configuration
-const oktaConfig = myAppConfig.oidc;
-const oktaAuth = new OktaAuth(oktaConfig);
-const moduleConfig: OktaConfig = { oktaAuth };
+// Configuration for Okta authentication
+const moduleConfig: OktaConfig = {
+  oktaAuth: new OktaAuth(myAppConfig.oidc)
+};
 
-// Function to redirect unauthorized users to the login page
-function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
-  const router = injector.get(Router); // Access router service via injector
-
-  // Redirect user to the custom login page
-  router.navigate(['/login']);
-}
-
-// Define application routes
+// Define the routes for the application
 const routes: Routes = [
-  { path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: sendToLoginPage } },
-  { path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: sendToLoginPage } },
+  // Order History route
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: (_oktaAuth: OktaAuth, injector: Injector) => {
+    const router = injector.get(Router);
+    router.navigate(['/login']);
+  }} },
+  // Members Page route
+  { path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: (_oktaAuth: OktaAuth, injector: Injector) => {
+    const router = injector.get(Router);
+    router.navigate(['/login']);
+  }} },
+  // Okta Callback route
   { path: 'login/callback', component: OktaCallbackComponent },
+  // Login route
   { path: 'login', component: LoginComponent },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: sendToLoginPage } },
+  // Checkout route
+  { path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: (_oktaAuth: OktaAuth, injector: Injector) => {
+    const router = injector.get(Router);
+    router.navigate(['/login']);
+  }} },
+  // Cart Details route
   { path: 'cart-details', component: CartDetailsComponent },
+  // Product Details route
   { path: 'products/:id', component: ProductDetailsComponent },
+  // Search route
   { path: 'search/:keyword', component: ProductListComponent },
+  // Category route with ID and name parameters
   { path: 'category/:id/:name', component: ProductListComponent },
+  // Category route
   { path: 'category', component: ProductListComponent },
+  // Products route
   { path: 'products', component: ProductListComponent },
+  // Default route redirects to Products route
   { path: '', redirectTo: '/products', pathMatch: 'full' },
+  // Wildcard route redirects to Products route
   { path: '**', redirectTo: '/products', pathMatch: 'full' },
 ];
 
 @NgModule({
   declarations: [
+    // Declare all the components used in the application
     AppComponent,
     ProductListComponent,
     ProductCategoryMenuComponent,
@@ -65,9 +80,11 @@ const routes: Routes = [
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
+    MembersPageComponent,
     OrderHistoryComponent,
   ],
   imports: [
+    // Import necessary modules
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
@@ -76,10 +93,10 @@ const routes: Routes = [
     OktaAuthModule.forRoot(moduleConfig),
   ],
   providers: [
+    // Provide services and interceptors
     ProductService,
-    
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, // Provide HTTP interceptor
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   ],
-  bootstrap: [AppComponent], // Bootstrap the root component
+  bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
-export class AppModule {} // AppModule class for Angular application module
+export class AppModule {} // Export the AppModule

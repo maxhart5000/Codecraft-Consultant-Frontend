@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Country } from '../common/country';
 import { State } from '../common/state';
 import { environment } from 'src/environments/environment';
@@ -9,54 +10,30 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ShopFormService {
-  private countriesUrl = environment.hartcodeApiUrl + '/countries';
-  private statesUrl = environment.hartcodeApiUrl + '/states';
+  private countriesUrl = `${environment.hartcodeApiUrl}/countries`;
+  private statesUrl = `${environment.hartcodeApiUrl}/states`;
 
   constructor(private httpClient: HttpClient) {}
 
+  /**
+   * Retrieves a list of countries.
+   * @returns An Observable that emits an array of Country objects.
+   */
   getCountries(): Observable<Country[]> {
-    return this.httpClient
-      .get<GetResponseCountries>(this.countriesUrl)
-      .pipe(map((response) => response._embedded.countries));
+    return this.httpClient.get<GetResponseCountries>(this.countriesUrl)
+      .pipe(map(response => response._embedded.countries));
   }
 
+  /**
+   * Retrieves a list of states for a given country code.
+   * @param theCountryCode The country code for which to retrieve the states.
+   * @returns An Observable that emits an array of State objects.
+   */
   getStates(theCountryCode: string): Observable<State[]> {
-    // Search url
-    const searchStatesUrl =
-      this.statesUrl + '/search/findByCountryCode?code=' + theCountryCode;
+    const searchStatesUrl = `${this.statesUrl}/search/findByCountryCode?code=${theCountryCode}`;
 
-    return this.httpClient
-      .get<GetResponseStates>(searchStatesUrl)
-      .pipe(map((response) => response._embedded.states));
-  }
-
-  getCreditCardMonths(startMonth: number): Observable<number[]> {
-    let data: number[] = [];
-
-    // Build an array for the "Month" dropdown list
-    // start at current month and loop through
-
-    for (let theMonth = startMonth; theMonth <= 12; theMonth++) {
-      data.push(theMonth);
-    }
-
-    return of(data);
-  }
-
-  getCreditCardYears(): Observable<number[]> {
-    let data: number[] = [];
-
-    // Build an array for "Year" dropdown list
-    // start at current year and loop over next 10 years
-
-    const startYear: number = new Date().getFullYear();
-    const endYear: number = startYear + 10;
-
-    for (let theYear = startYear; theYear <= endYear; theYear++) {
-      data.push(theYear);
-    }
-
-    return of(data);
+    return this.httpClient.get<GetResponseStates>(searchStatesUrl)
+      .pipe(map(response => response._embedded.states));
   }
 }
 

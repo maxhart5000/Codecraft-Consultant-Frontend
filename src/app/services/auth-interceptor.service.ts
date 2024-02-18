@@ -16,6 +16,12 @@ import { environment } from 'src/environments/environment';
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {}
 
+  /**
+   * Intercepts HTTP requests and adds authorization headers for secured endpoints.
+   * @param request The HTTP request.
+   * @param next The HTTP handler.
+   * @returns An observable of the HTTP event.
+   */
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -23,26 +29,32 @@ export class AuthInterceptorService implements HttpInterceptor {
     return from(this.handleAccess(request, next));
   }
 
+  /**
+   * Handles access to secured endpoints by adding authorization headers.
+   * @param request The HTTP request.
+   * @param next The HTTP handler.
+   * @returns A promise of the HTTP event.
+   */
   private async handleAccess(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Promise<HttpEvent<any>> {
-    // Only add access token for secured rest endpoints
     const endPoint = environment.hartcodeApiUrl + '/orders';
     const securedEndpoints = [endPoint];
 
+    // Check if the request URL includes any of the secured endpoints
     if (securedEndpoints.some((url) => request.urlWithParams.includes(url))) {
-      // Get access token
       const accessToken = this.oktaAuth.getAccessToken();
 
-      // Clone the request and add new header with the access token
+      // Clone the request and add the authorization header
       request = request.clone({
         setHeaders: {
-          AUthorization: 'Bearer ' + accessToken,
+          Authorization: 'Bearer ' + accessToken,
         },
       });
     }
 
+    // Send the modified request to the next handler and return the response
     return await lastValueFrom(next.handle(request));
   }
 }

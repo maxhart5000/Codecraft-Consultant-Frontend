@@ -7,102 +7,95 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class CartService {
   cartItems: CartItem[] = [];
-
-  // Use this to store data by session. i.e. per browser session
-  // storage: Storage = sessionStorage;
-
-  // Use this to store data locally. i.e. to retain data even if browser session has ended
   storage: Storage = localStorage;
-
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
   constructor() {
-    // Read the data from the storage
-    let data = JSON.parse(this.storage.getItem('cartItems')!);
-
+    // Retrieve cart items from local storage if available
+    const data = JSON.parse(this.storage.getItem('cartItems') || 'null');
     if (data != null) {
       this.cartItems = data;
-
-      // Compute the totals based on data read from storage
       this.computeCartTotals();
     }
   }
 
+  /**
+   * Add an item to the cart
+   * @param theCartItem The item to be added
+   */
   addToCart(theCartItem: CartItem) {
-    // Check if we already have the item in our cart
-    let alreadyExistsInCart: boolean = false;
+    let alreadyExistsInCart = false;
     let existingCartItem: CartItem | undefined;
 
+    // Check if the item already exists in the cart
     if (this.cartItems.length > 0) {
-      // Find the item in the cart based on item id
       existingCartItem = this.cartItems.find(
         (currentArrayElement) => currentArrayElement.id === theCartItem.id
       );
-
-      // Check if we found it
-      alreadyExistsInCart = existingCartItem != undefined;
+      alreadyExistsInCart = existingCartItem !== undefined;
     }
+
+    // Increment quantity if item already exists, otherwise add it to the cart
     if (alreadyExistsInCart) {
-      // Increment the quantity
       existingCartItem!.quantity++;
     } else {
-      // Just add the item to the array
       this.cartItems.push(theCartItem);
     }
 
-    // Compute cart total price and total quantity
     this.computeCartTotals();
   }
 
+  /**
+   * Compute the total price and quantity of items in the cart
+   */
   computeCartTotals() {
-    let totalPriceValue: number = 0;
-    let totalQuantityValue: number = 0;
+    let totalPriceValue = 0;
+    let totalQuantityValue = 0;
 
-    for (let currentCartItem of this.cartItems) {
+    for (const currentCartItem of this.cartItems) {
       totalPriceValue += currentCartItem.unitPrice * currentCartItem.quantity;
       totalQuantityValue += currentCartItem.quantity;
     }
 
-    // Publish the new values... All subscribers will recieve new data
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
 
-    // Log cart data just for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
 
-    // Persist cart data
     this.persistCartItems();
   }
 
+  /**
+   * Persist the cart items to local storage
+   */
   persistCartItems() {
     this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
+  /**
+   * Log the contents of the cart
+   * @param totalPriceValue The total price of all items in the cart
+   * @param totalQuantityValue The total quantity of items in the cart
+   */
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log('Contents of the cart');
-    for (let tempCartItem of this.cartItems) {
+    for (const tempCartItem of this.cartItems) {
       const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
       console.log(
-        'Name: ' +
-          tempCartItem.name +
-          ', Quantity: ' +
-          tempCartItem.quantity +
-          ', Unit Price: ' +
-          tempCartItem.unitPrice +
-          ', SubTotal: ' +
-          subTotalPrice
+        `Name: ${tempCartItem.name}, Quantity: ${tempCartItem.quantity}, Unit Price: ${tempCartItem.unitPrice}, SubTotal: ${subTotalPrice}`
       );
     }
     console.log(
-      'Total Price: ' +
-        totalPriceValue.toFixed(2) +
-        ', Total Quantity: ' +
-        totalQuantityValue
+      `Total Price: ${totalPriceValue.toFixed(2)}, Total Quantity: ${totalQuantityValue}`
     );
     console.log('------');
   }
 
+  /**
+   * Decrement the quantity of an item in the cart
+   * @param theCartItem The item to decrement the quantity of
+   */
   decrementQuantity(theCartItem: CartItem) {
     theCartItem.quantity--;
     if (theCartItem.quantity === 0) {
@@ -112,13 +105,15 @@ export class CartService {
     }
   }
 
+  /**
+   * Remove an item from the cart
+   * @param theCartItem The item to be removed
+   */
   remove(theCartItem: CartItem) {
-    // Get index of item in the array
     const itemIndex = this.cartItems.findIndex(
       (currentArrayItem) => currentArrayItem.id === theCartItem.id
     );
 
-    // If found, remove the item from the array at the given index
     if (itemIndex > -1) {
       this.cartItems.splice(itemIndex, 1);
       this.computeCartTotals();

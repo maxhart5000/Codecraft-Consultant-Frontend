@@ -1,14 +1,18 @@
-import { FormControl, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, ValidationErrors } from '@angular/forms';
 
+/**
+ * Custom form validator class.
+ */
 export class FormValidators {
-  // Whitespace validation
+  /**
+   * Validator function to check if the control value contains only whitespace.
+   * @param control The form control to be validated.
+   * @returns Validation errors if the control value contains only whitespace, otherwise null.
+   */
   static notOnlyWhitespace(control: FormControl): ValidationErrors {
-    // Check if string only contains whitespace
     if (control.value != null && control.value.trim().length === 0) {
-      // Invalid, return error object
       return { notOnlyWhitespace: true };
     } else {
-      // Valid, return null
       return null!;
     }
   }
